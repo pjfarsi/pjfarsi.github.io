@@ -1,0 +1,5 @@
+# Keep these project docs unlisted — share by exact link only.
+# Scoped per-project so other sites (e.g. canna-market) are unaffected.
+User-agent: *
+Disallow: /ToHR/
+Disallow: /weedsy/

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weedsy · Brand System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ brand constants (never change with theme) ============ */
+  :root{
+    --verify:#27500A; --verify-soft:#EAF3DE;
+    --amber:#BA7517; --amber-soft:#FAEEDA; --amber-deep:#633806;
+    --coral:#D85A30; --coral-soft:#FAECE7; --coral-deep:#712B13;
+    --teal:#0F6E56; --teal-soft:#E1F5EE; --teal-deep:#085041;
+    --ink-const:#2B2825;
+  }
+
+  /* ============ THEME: CLASSIC (default · the Etsy-exact look) ============ */
+  body{
+    --bg:#FFFFFF;
+    --surface:#FFFFFF;
+    --ghost:#F7F4EF;
+    --card:#FFFFFF;
+    --ink:#2B2825;
+    --ink-dim:#6E6A64;
+    --line:#E8E4DE;
+    --accent:#BA7517;
+    --accent-soft:#FAEEDA;
+    --accent-deep:#633806;
+    --accent-ink:#FFFFFF;
+    --radius:12px;
+    --air:1;
+    --shadow:0 18px 44px rgba(76,62,44,.10);
+  }
+  /* ============ THEME: FRESH (livelier, tighter, image-forward) ============ */
+  body.theme-fresh{
+    --ghost:#FBF1ED;
+    --accent:#D85A30;
+    --accent-soft:#FAECE7;
+    --accent-deep:#712B13;
+    --radius:16px;
+    --air:0.85;
+    --shadow:0 18px 44px rgba(113,43,19,.12);
+  }
+  /* ============ THEME: CARE (calmer, softer, more room) ============ */
+  body.theme-care{
+    --ghost:#F0F7F4;
+    --accent:#0F6E56;
+    --accent-soft:#E1F5EE;
+    --accent-deep:#085041;
+    --radius:14px;
+    --air:1.25;
+    --shadow:0 18px 44px rgba(8,80,65,.10);
+  }
+  body.theme-care{font-size:104%}
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html.lg{font-size:118%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Hanken Grotesk',system-ui,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+    transition:background .25s;
+  }
+  h1,h2,h3,.wordmark{font-family:'Bricolage Grotesque','Hanken Grotesk',sans-serif;font-weight:500}
+  a{color:var(--accent)}
+  button{font-family:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{transition:none !important;animation:none !important}
+    html{scroll-behavior:auto}
+  }
+
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-dim);font-weight:600;
+  }
+
+  /* ============ topbar ============ */
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:14px 28px;background:var(--bg);
+    border-bottom:1px solid var(--line);transition:background .25s;
+  }
+  .topbar .mark{width:30px;height:30px;color:var(--accent);transition:color .25s}
+  .wordmark{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;color:var(--accent);transition:color .25s}
+  .topbar .spacer{flex:1}
+  .seg{display:flex;border:1.5px solid var(--line);border-radius:22px;overflow:hidden}
+  .seg button{
+    border:none;background:transparent;color:var(--ink-dim);
+    padding:7px 16px;font-size:.82rem;font-weight:600;
+    transition:background .2s,color .2s;
+  }
+  .seg button.active{background:var(--accent);color:var(--accent-ink)}
+  .aa{
+    border:1.5px solid var(--line);background:transparent;color:var(--ink);
+    border-radius:22px;padding:7px 14px;font-size:.82rem;font-weight:600;
+  }
+  .aa.active{border-color:var(--ink)}
+
+  /* ============ header ============ */
+  .hero{text-align:center;padding:calc(64px * var(--air)) 24px calc(40px * var(--air))}
+  .hero .mark{width:96px;height:96px;color:var(--accent);transition:color .25s}
+  .hero h1{font-size:3.2rem;letter-spacing:-.03em;color:var(--accent);transition:color .25s;line-height:1.1}
+  .hero .tagline{font-size:1.12rem;color:var(--ink);margin-top:10px}
+  .hero .thesis{color:var(--ink-dim);max-width:520px;margin:14px auto 0}
+  .hero .pill{
+    display:inline-block;margin-top:20px;
+    background:var(--ghost);border:1px solid var(--line);border-radius:20px;
+    padding:5px 16px;font-size:.8rem;color:var(--ink-dim);font-weight:600;
+  }
+
+  section{max-width:1060px;margin:0 auto;padding:calc(48px * var(--air)) 28px}
+  section > .eyebrow{display:block;margin-bottom:6px}
+  section h2{font-size:2rem;letter-spacing:-.02em;margin-bottom:14px}
+  section .lede{color:var(--ink-dim);max-width:640px;margin-bottom:30px}
+
+  /* ============ logo section ============ */
+  .paper{
+    background:#FFFFFF;border:1px solid var(--line);border-radius:18px;
+    padding:40px;box-shadow:var(--shadow);
+  }
+  .logo-stage{display:flex;align-items:center;justify-content:center;padding:34px 0 26px}
+  .logo-stage .mark{width:150px;height:150px;color:var(--ink-const)}
+  .meaning{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:22px;margin:26px 0 6px;
+  }
+  .meaning h3{font-size:1.02rem;margin-bottom:4px;color:var(--ink-const)}
+  .meaning p{font-size:.92rem;color:#6E6A64}
+  .rule-callout{
+    margin-top:26px;border:1.5px solid var(--verify);border-radius:12px;
+    background:var(--verify-soft);padding:16px 20px;
+    color:var(--verify);font-weight:600;font-size:.95rem;
+  }
+  .tiles{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;margin-top:30px;
+  }
+  .logo-tile{
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+    min-height:200px;padding:28px 22px 24px;
+    border-radius:12px;border:1px solid var(--line);
+  }
+  .tile-art{flex:1;display:flex;align-items:center;justify-content:center}
+  .logo-tile small{font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .tile-white{background:#FFFFFF;color:var(--ink-const)} .tile-white small{color:#6E6A64}
+  .tile-amber{background:var(--amber-soft);color:var(--amber-deep)} .tile-amber small{color:var(--amber-deep)}
+  .tile-ink{background:var(--ink-const);color:#F5F1EA;border-color:var(--ink-const)} .tile-ink small{color:#B9B2A7}
+  .tile-verify{background:var(--verify-soft);color:var(--verify)} .tile-verify small{color:var(--verify)}
+  .logo-tile .mark{width:64px;height:64px}
+  .lockup{
+    margin-top:30px;display:flex;align-items:center;justify-content:center;gap:18px;
+    padding:28px;border:1px dashed var(--line);border-radius:12px;
+  }
+  .lockup .mark{width:52px;height:52px;color:var(--ink-const)}
+  .lockup .wordmark{font-size:2.4rem;color:var(--ink-const)}
+
+  /* ============ color section ============ */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+  .swatch{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+  .swatch .chip{height:88px}
+  .swatch .info{padding:12px 16px 14px}
+  .swatch b{display:block;font-size:.95rem}
+  .swatch .hex{font-size:.78rem;color:var(--ink-dim);font-weight:600;letter-spacing:.04em}
+  .swatch .role{font-size:.84rem;color:var(--ink-dim);margin-top:4px}
+  .reserve{
+    margin-top:22px;border:1px solid var(--line);border-radius:12px;
+    background:var(--ghost);padding:16px 20px;font-size:.92rem;color:var(--ink);
+  }
+  .reserve b{color:var(--verify)}
+
+  /* ============ fonts section ============ */
+  .font-card{
+    border:1px solid var(--line);border-radius:12px;background:var(--card);
+    padding:24px 26px;margin-bottom:16px;
+  }
+  .font-card .job{font-size:.85rem;color:var(--ink-dim);margin-bottom:14px}
+  .font-card .job b{color:var(--ink)}
+  .spec-display{font-family:'Bricolage Grotesque',sans-serif;font-size:2rem;font-weight:500;letter-spacing:-.02em;line-height:1.2}
+  .spec-body{font-size:1.05rem;max-width:560px}
+  .spec-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink-dim)}
+
+  /* ============ mockups ============ */
+  .phones{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:stretch;margin-top:8px}
+  .phone{
+    flex:1 1 310px;min-height:600px;max-width:340px;
+    margin:0 auto;
+    display:flex;flex-direction:column;
+    border-radius:40px;border:1.5px solid var(--line);
+    background:var(--bg);box-shadow:var(--shadow);
+    overflow:hidden;padding:18px 16px 16px;transition:background .25s;
+  }
+  .statusbar{display:flex;justify-content:space-between;gap:10px;font-size:.7rem;color:var(--ink-dim);font-weight:600;padding:0 8px 10px;white-space:nowrap}
+  .appbar{display:flex;align-items:center;gap:8px;padding:0 4px 10px}
+  .appbar .mark{width:22px;height:22px;color:var(--accent);transition:color .25s}
+  .appbar .wordmark{font-size:1.05rem}
+  .appbar .age{margin-left:auto;font-size:.66rem;font-weight:700;color:var(--ink-dim);border:1px solid var(--line);border-radius:10px;padding:2px 8px}
+  .searchbar{
+    border:1.5px solid var(--line);border-radius:20px;padding:8px 14px;
+    font-size:.8rem;color:var(--ink-dim);margin-bottom:calc(14px * var(--air));
+  }
+  .pcard{
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    margin-bottom:calc(12px * var(--air));background:var(--card);
+  }
+  .pcard .ph{height:84px;background:var(--accent-soft);transition:background .25s}
+  body.theme-fresh .pcard .ph{height:104px}
+  .pcard .pad{padding:10px 14px 12px}
+  .vbadge{
+    display:inline-flex;align-items:center;gap:5px;
+    background:var(--verify-soft);color:var(--verify);
+    font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    border-radius:9px;padding:2px 8px;
+  }
+  .vbadge svg{width:11px;height:11px}
+  .pcard .pname{font-weight:600;font-size:.92rem;margin-top:5px}
+  .pcard .pfarm{font-size:.76rem;color:var(--ink-dim)}
+  .pcard .pprice{font-size:.82rem;color:var(--accent-deep);font-weight:600;margin-top:2px;transition:color .25s}
+  .bigph{height:150px;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:12px;transition:background .25s}
+  .h-product{font-family:'Bricolage Grotesque',sans-serif;font-size:1.25rem;font-weight:500;line-height:1.2}
+  .meta{font-size:.8rem;color:var(--ink-dim);margin:4px 0 8px}
+  .batch{
+    border:1px solid var(--line);border-radius:10px;background:var(--ghost);
+    font-size:.76rem;color:var(--ink);padding:8px 12px;margin:10px 0;
+  }
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+  .chip{
+    font-size:.68rem;font-weight:600;color:var(--accent-deep);
+    background:var(--accent-soft);border-radius:11px;padding:3px 10px;transition:background .25s,color .25s;
+  }
+  .cta{
+    margin-top:auto;background:var(--accent);color:var(--accent-ink);
+    border:none;border-radius:24px;padding:12px 0;width:100%;
+    font-size:.95rem;font-weight:700;transition:background .25s;
+  }
+  .avatar{
+    width:58px;height:58px;border-radius:50%;flex-shrink:0;
+    background:var(--accent-soft);color:var(--accent-deep);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:1.1rem;transition:background .25s,color .25s;
+  }
+  .farmhead{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .farmhead .fname{font-family:'Bricolage Grotesque',sans-serif;font-size:1.1rem;font-weight:500;line-height:1.2}
+  .farmhead .floc{font-size:.78rem;color:var(--ink-dim)}
+  .story{font-size:.84rem;color:var(--ink);margin:8px 0 4px}
+  .caption{text-align:center;font-size:.8rem;color:var(--ink-dim);margin-top:14px;font-weight:600}
+
+  /* ============ behaviors ============ */
+  .behaviors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .bcard{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:20px 22px}
+  .bcard h3{font-size:1.02rem;margin-bottom:6px}
+  .bcard p{font-size:.9rem;color:var(--ink-dim)}
+
+  footer{
+    border-top:1px solid var(--line);margin-top:30px;
+    padding:26px 28px 40px;text-align:center;
+    font-size:.8rem;color:var(--ink-dim);
+  }
+
+  @media (max-width:760px){
+    .hero h1{font-size:2.3rem}
+    .paper{padding:24px}
+    .phone{min-height:0}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="seal" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="32" cy="32" r="29" fill="none"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke-width="1" stroke-dasharray="2 3"/>
+      <line x1="17" y1="40" x2="47" y2="40"/>
+      <path d="M22 40 A 10 10 0 0 1 42 40 Z" fill="currentColor" stroke="none"/>
+      <line x1="32" y1="28" x2="32" y2="24"/>
+      <line x1="23.5" y1="31.5" x2="20.7" y2="28.7"/>
+      <line x1="40.5" y1="31.5" x2="43.3" y2="28.7"/>
+    </g>
+    <g id="check">
+      <path d="M5 13 L10 18 L19 7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg>
+  <span class="wordmark">weedsy</span>
+  <span class="spacer"></span>
+  <nav class="seg" aria-label="Theme">
+    <button data-theme="" class="active">Classic</button>
+    <button data-theme="theme-fresh">Fresh</button>
+    <button data-theme="theme-care">Care</button>
+  </nav>
+  <button class="aa" id="aa" aria-pressed="false" title="Larger text">Aa</button>
+</header>
+
+<div class="hero">
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg>
+  <h1>weedsy</h1>
+  <p class="tagline">A marketplace of small, independent farms</p>
+  <p class="thesis">Weedsy is to corporate cannabis what Etsy is to Amazon. One calm brand, three comforts, and a seal that means a human checked.</p>
+  <span class="pill">Adults 21+ · working name pending trademark clearance</span>
+</div>
+
+<section id="logo">
+  <span class="eyebrow">01 · Identity</span>
+  <h2>The Seal</h2>
+  <p class="lede">A round produce sticker holding a rising sun over a furrow. No leaf, no cross, no smoke. Presented on white, the way it would sit on a jar at the farmers market.</p>
+  <div class="paper">
+    <div class="logo-stage">
+      <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="The Weedsy seal"><use href="#seal"/></svg>
+    </div>
+    <div class="meaning">
+      <div>
+        <h3>The sticker</h3>
+        <p>The little seal on an heirloom tomato. Picked by hand, checked by a person, sold by the grower. The perforated inner ring is the stamp of that check.</p>
+      </div>
+      <div>
+        <h3>The sun</h3>
+        <p>Sungrown, not warehouse grown. The half disc rising is harvest morning, and it gives the brand its active color, sungrown amber.</p>
+      </div>
+      <div>
+        <h3>The furrow</h3>
+        <p>One line of living soil. The quiet nod to regenerative growing and to the people who keep the ground healthy.</p>
+      </div>
+    </div>
+    <div class="rule-callout">The seal appears only beside verified farms. It never decorates. Wherever you see it, a human has checked the license and met the grower.</div>
+    <div class="tiles">
+      <div class="logo-tile tile-white">
+        <div class="tile-art"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg></div>
+        <small>On white</small>
+      </div>
+      <div class="logo-tile tile-amber">
+        <div class="tile-art"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg></div>
+        <small>On amber</small>
+      </div>
+      <div class="logo-tile tile-ink">
+        <div class="tile-art"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg></div>
+        <small>On ink</small>
+      </div>
+      <div class="logo-tile tile-verify">
+        <div class="tile-art"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg></div>
+        <small>On verified green</small>
+      </div>
+    </div>
+    <div class="lockup">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg>
+      <span class="wordmark">weedsy</span>
+    </div>
+  </div>
+</section>
+
+<section id="color">
+  <span class="eyebrow">02 · Color</span>
+  <h2>Sun, soil, and one promise</h2>
+  <p class="lede">White carries the marketplace, the way it carries Etsy. Each theme owns one accent. Verified green belongs to the seal and the badge, nothing else, so it always means the same thing.</p>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#BA7517"></div><div class="info"><b>Sungrown amber</b><span class="hex">#BA7517</span><div class="role">Classic accent, the default voice</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#D85A30"></div><div class="info"><b>Harvest coral</b><span class="hex">#D85A30</span><div class="role">Fresh accent, the livelier comfort</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#0F6E56"></div><div class="info"><b>Quiet teal</b><span class="hex">#0F6E56</span><div class="role">Care accent, the calmer comfort</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#27500A"></div><div class="info"><b>Verified green</b><span class="hex">#27500A</span><div class="role">The seal and the badge only. Reserved.</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#2B2825"></div><div class="info"><b>Ink</b><span class="hex">#2B2825</span><div class="role">All reading text</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div><div class="info"><b>Market white</b><span class="hex">#FFFFFF</span><div class="role">The background, everywhere, every theme</div></div></div>
+  </div>
+  <div class="reserve">Two standing rules: one promoted accent element per screen, and <b>verified green is never decorative</b>. If green appears, it is the seal or the badge, full stop.</div>
+</section>
+
+<section id="fonts">
+  <span class="eyebrow">03 · Fonts</span>
+  <h2>Type</h2>
+  <p class="lede">The brand uses two fonts plus one label style.</p>
+  <div class="font-card">
+    <div class="job"><b>Font 1: Bricolage Grotesque</b> · used for headlines and the wordmark · sample:</div>
+    <div class="spec-display">Grown by people, not corporations</div>
+  </div>
+  <div class="font-card">
+    <div class="job"><b>Font 2: Hanken Grotesk</b> · used for everything you read, listings, stories, buttons · sample:</div>
+    <div class="spec-body">Emerald Hollow is a two acre family farm in Mendocino. This batch was harvested in October, cured six weeks, and jarred by hand. 120 jars, and when they are gone, they are gone.</div>
+  </div>
+  <div class="font-card">
+    <div class="job"><b>Label style: small caps tracking</b> · used for section markers and badges · sample:</div>
+    <div class="spec-label">Verified farm · Small batch · Mendocino</div>
+  </div>
+</section>
+
+<section id="app">
+  <span class="eyebrow">04 · The Marketplace</span>
+  <h2>Three screens behind the gate</h2>
+  <p class="lede">Home, listing, and farm. The layout never changes between themes; only the accent, the spacing, and the comfort do. Switch themes in the top bar and watch all three respond.</p>
+  <div class="phones">
+
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>21+ verified</span></div>
+      <div class="appbar">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg>
+        <span class="wordmark">weedsy</span>
+        <span class="age">21+</span>
+      </div>
+      <div class="searchbar">Search small farms and small batches</div>
+      <div class="pcard">
+        <div class="ph"></div>
+        <div class="pad">
+          <span class="vbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg>Verified farm</span>
+          <div class="pname">Sunrise small batch</div>
+          <div class="pfarm">Emerald Hollow Farm · Mendocino</div>
+          <div class="pprice">From $38</div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="ph"></div>
+        <div class="pad">
+          <span class="vbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg>Verified farm</span>
+          <div class="pname">Coastal cultivar</div>
+          <div class="pfarm">Two Rivers Collective · Humboldt</div>
+          <div class="pprice">From $42</div>
+        </div>
+      </div>
+      <button class="cta">Browse the farms</button>
+      <div class="caption">Home · the market</div>
+    </div>
+
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>21+ verified</span></div>
+      <div class="bigph"></div>
+      <span class="vbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg>Verified farm</span>
+      <div class="h-product" style="margin-top:8px">Sunrise small batch</div>
+      <div class="meta">Emerald Hollow Farm · Mendocino · From $38</div>
+      <div class="batch">Harvested October · cured six weeks · jarred by hand · 120 jars in this batch</div>
+      <div class="chips"><span class="chip">Sungrown</span><span class="chip">Regenerative</span><span class="chip">Family run</span></div>
+      <button class="cta">Add to basket</button>
+      <div class="caption">Listing · the jar</div>
+    </div>
+
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>21+ verified</span></div>
+      <div class="farmhead">
+        <div class="avatar">EH</div>
+        <div>
+          <div class="fname">Emerald Hollow Farm</div>
+          <div class="floc">Mendocino · growing since 2009</div>
+        </div>
+      </div>
+      <span class="vbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg>Verified farm</span>
+      <p class="story">Maria and Tom farm two acres in the hills above Willits. Living soil, sun, and a hand harvest every October. You are buying from them, not from us.</p>
+      <div class="chips"><span class="chip">Sungrown</span><span class="chip">Regenerative</span><span class="chip">Two acres</span></div>
+      <div class="pcard" style="margin-top:10px">
+        <div class="pad">
+          <div class="pname">Sunrise small batch</div>
+          <div class="pprice">From $38</div>
+        </div>
+      </div>
+      <button class="cta">Follow this farm</button>
+      <div class="caption">Farm · the people</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="behavior">
+  <span class="eyebrow">05 · How Weedsy Behaves</span>
+  <h2>Market rules, written down</h2>
+  <p class="lede">The brand commitments, drawn straight from the product rules.</p>
+  <div class="behaviors">
+    <div class="bcard">
+      <h3>Gate first, always</h3>
+      <p>Nothing renders before the 21+ gate. The gate may suggest a starting theme from the visitor's answers, and that suggestion is a UI hint, not a record. What is collected or kept is decided by counsel, not by code.</p>
+    </div>
+    <div class="bcard">
+      <h3>Green means verified</h3>
+      <p>The seal and the green badge appear only where a human has checked the license and met the grower. Everything unverified says so, honestly and in plain words.</p>
+    </div>
+    <div class="bcard">
+      <h3>Plain words, no claims</h3>
+      <p>Farmers market voice. No medical claims, no wellness promises, no slang. Any copy that wanders toward a claim ships with a counsel review flag, not a guess.</p>
+    </div>
+    <div class="bcard">
+      <h3>One brand, many comforts</h3>
+      <p>Classic, Fresh, and Care change accent, spacing, and type size. They never change layout, navigation, or content. Every screen works in all three themes, in large text, and with reduced motion.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Weedsy · concept for the One Tribe Schedule III partnership · working name pending trademark clearance · adults 21+ only · internal use
+</footer>
+
+<script>
+  var segButtons = document.querySelectorAll('.seg button');
+  segButtons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.body.className = b.dataset.theme;
+      segButtons.forEach(function (x) { x.classList.toggle('active', x === b); });
+    });
+  });
+  var aa = document.getElementById('aa');
+  aa.addEventListener('click', function () {
+    var on = document.documentElement.classList.toggle('lg');
+    aa.classList.toggle('active', on);
+    aa.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+</script>
+</body>
+</html>
