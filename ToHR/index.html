@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Temple of Harm Reduction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1E1B16; --card:#322C23; --cell-hover:#3D362B;
+    --ink:#F1EBDD; --ink-dim:#A89F8E; --line:rgba(241,235,221,.11);
+    --accent:#D49A4A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(120% 80% at 50% -10%, rgba(212,154,74,.10), transparent 60%);
+    color:var(--ink);
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    line-height:1.5; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:clamp(1.5rem,5vw,4rem);
+  }
+  .wrap{width:100%;max-width:600px}
+  .kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem}
+  h1{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(2rem,7vw,3rem);line-height:1.08;letter-spacing:-.01em;margin-bottom:.8rem}
+  .lede{color:var(--ink-dim);font-size:1rem;max-width:42ch;margin-bottom:2.4rem}
+  .cards{display:grid;gap:1rem}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.5rem;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+  a.card:hover,a.card:focus-visible{transform:translateY(-2px);border-color:var(--accent);background:var(--cell-hover);outline:none}
+  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+  .card h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:1.28rem;letter-spacing:-.01em}
+  .card p{color:var(--ink-dim);font-size:.9rem;margin-top:.35rem}
+  .arrow{color:var(--accent);font-size:1.2rem;flex:none;transition:transform .18s ease}
+  a.card:hover .arrow{transform:translateX(3px)}
+  footer{margin-top:2.4rem;color:var(--ink-dim);font-size:.76rem;opacity:.7}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="kicker">Temple of Harm Reduction</p>
+    <h1>Field guide — work in progress</h1>
+    <p class="lede">Reference documents for the ToHR Burning Man 2026 field guide.</p>
+    <div class="cards">
+      <a class="card" href="brand-reference.html">
+        <div class="row"><h2>Brand System</h2><span class="arrow" aria-hidden="true">&rarr;</span></div>
+        <p>Colors, type, themes, honeycomb geometry, and voice.</p>
+      </a>
+      <a class="card" href="case-for-support.html">
+        <div class="row"><h2>Case for Support</h2><span class="arrow" aria-hidden="true">&rarr;</span></div>
+        <p>Why this work matters and what your support makes possible.</p>
+      </a>
+    </div>
+    <footer>Shared for review · unlisted</footer>
+  </main>
+</body>
+</html>

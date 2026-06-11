@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Weedsy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --ghost:#F7F4EF; --card:#FFFFFF;
+    --ink:#2B2825; --ink-dim:#6E6A64; --line:#E8E4DE;
+    --accent:#BA7517; --accent-soft:#FAEEDA; --accent-deep:#633806;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    line-height:1.5; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:clamp(1.5rem,5vw,4rem);
+  }
+  .wrap{width:100%;max-width:600px}
+  .kicker{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;background:var(--accent-soft);padding:.35rem .7rem;border-radius:999px;margin-bottom:1.1rem}
+  h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:clamp(2.1rem,7vw,3rem);line-height:1.04;letter-spacing:-.02em;margin-bottom:.7rem}
+  .lede{color:var(--ink-dim);font-size:1rem;max-width:42ch;margin-bottom:2.2rem}
+  .cards{display:grid;gap:.9rem}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.4rem;box-shadow:0 1px 2px rgba(76,62,44,.04);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+  a.card:hover,a.card:focus-visible{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 14px 30px rgba(76,62,44,.10);outline:none}
+  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+  .card h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:1.24rem;letter-spacing:-.01em}
+  .card p{color:var(--ink-dim);font-size:.9rem;margin-top:.3rem}
+  .arrow{color:var(--accent);font-size:1.2rem;flex:none;transition:transform .16s ease}
+  a.card:hover .arrow{transform:translateX(3px)}
+  footer{margin-top:2.2rem;color:var(--ink-dim);font-size:.76rem;opacity:.8}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="kicker">Weedsy</p>
+    <h1>Brand &amp; deck</h1>
+    <p class="lede">The Weedsy brand system and investor pitch deck.</p>
+    <div class="cards">
+      <a class="card" href="brand-reference.html">
+        <div class="row"><h2>Brand System</h2><span class="arrow" aria-hidden="true">&rarr;</span></div>
+        <p>Colors, type, themes, components, and the verified-farm voice.</p>
+      </a>
+      <a class="card" href="pitch-deck.html">
+        <div class="row"><h2>Pitch Deck</h2><span class="arrow" aria-hidden="true">&rarr;</span></div>
+        <p>The investor deck — story, market, and the ask.</p>
+      </a>
+    </div>
+    <footer>Shared for review · unlisted</footer>
+  </main>
+</body>
+</html>
