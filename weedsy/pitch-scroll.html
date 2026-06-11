@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>California Schedule III · Partnership Story · One Tribe, LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── brand constants ──────────────────────────────────────────── */
+:root{
+  --verify:#27500A; --verify-soft:#EAF3DE;
+  --topbar-h:60px;
+}
+/* ── CLASSIC (default) ────────────────────────────────────────── */
+body{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ghost:#F7F4EF; --card:#FFFFFF;
+  --ink:#2B2825; --ink-dim:#6E6A64; --line:#E8E4DE;
+  --accent:#BA7517; --accent-soft:#FAEEDA; --accent-deep:#633806; --accent-ink:#FFFFFF;
+  --radius:12px; --shadow:0 18px 44px rgba(76,62,44,.10);
+  --dark-bg:#1C1108; --dark-card:#2A1C0E; --dark-ink:#F5F1EA; --dark-dim:#B9AFA3; --dark-line:rgba(255,255,255,.1);
+}
+/* ── FRESH ────────────────────────────────────────────────────── */
+body.theme-fresh{
+  --ghost:#FBF1ED; --accent:#D85A30; --accent-soft:#FAECE7;
+  --accent-deep:#712B13; --radius:16px;
+  --shadow:0 18px 44px rgba(113,43,19,.12);
+  --dark-bg:#1A0C07; --dark-card:#2A140C; --dark-dim:#C4AA9F;
+}
+/* ── CARE ─────────────────────────────────────────────────────── */
+body.theme-care{
+  --ghost:#F0F7F4; --accent:#0F6E56; --accent-soft:#E1F5EE;
+  --accent-deep:#085041; --radius:14px;
+  --shadow:0 18px 44px rgba(8,80,65,.10);
+  --dark-bg:#061710; --dark-card:#0C241B; --dark-dim:#97C4B3;
+  font-size:104%;
+}
+/* ── NIGHT ────────────────────────────────────────────────────── */
+body.theme-night{
+  --bg:#1E1B18; --surface:#1E1B18; --ghost:#2E2A26; --card:#262320;
+  --ink:#F5F1EA; --ink-dim:#B9B2A7; --line:#3A352F;
+  --accent:#E09A33; --accent-soft:#3D2F1A; --accent-deep:#F2C77F; --accent-ink:#1E1B18;
+  --radius:12px; --shadow:0 18px 44px rgba(0,0,0,.5);
+  --dark-bg:#0D0B09; --dark-card:#1B1611; --dark-ink:#F5F1EA; --dark-dim:#B9AFA3;
+}
+/* ── CONTRAST ─────────────────────────────────────────────────── */
+body.theme-contrast{
+  --ghost:#F2F2F2; --ink:#000000; --ink-dim:#3A3A3A; --line:#000000;
+  --accent:#6B3E00; --accent-soft:#FFE3B8; --accent-deep:#2E1B00; --accent-ink:#FFFFFF;
+  --radius:6px; --shadow:none;
+  --dark-bg:#000000; --dark-card:#141414; --dark-ink:#FFFFFF; --dark-dim:#CCCCCC; --dark-line:rgba(255,255,255,.35);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth; overflow-x:clip}
+html.lg{font-size:118%}
+body{
+  font-family:'Hanken Grotesk',system-ui,sans-serif;
+  background:var(--bg); color:var(--ink);
+  overflow-x:clip;
+  transition:background .3s, color .3s;
+}
+h1,h2,h3,.wordmark{font-family:'Bricolage Grotesque','Hanken Grotesk',sans-serif;font-weight:500;letter-spacing:-.02em}
+img{max-width:100%}
+
+/* ── reveal system ────────────────────────────────────────────── */
+[data-rv]{
+  opacity:0; transform:translateY(26px);
+  transition:opacity .8s ease var(--d,0s), transform .8s cubic-bezier(.22,1,.36,1) var(--d,0s);
+}
+[data-rv="left"]{transform:translateX(-32px)}
+[data-rv="scale"]{transform:scale(.93)}
+[data-rv].in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){
+  [data-rv]{opacity:1!important; transform:none!important; transition:none!important}
+}
+body.rm [data-rv]{opacity:1!important; transform:none!important; transition:none!important}
+
+/* ── progress bar ─────────────────────────────────────────────── */
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0;
+  background:var(--accent); z-index:300;
+}
+
+/* ── topbar ───────────────────────────────────────────────────── */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:var(--topbar-h);
+  display:flex; align-items:center; gap:12px;
+  padding:0 20px;
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:background .3s, border-color .3s;
+}
+.topbar .mark{width:26px; height:26px; color:var(--accent); flex-shrink:0}
+.topbar .wordmark{font-size:1.05rem; font-weight:600; color:var(--accent)}
+.topbar .copartner{
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-dim); border-left:1px solid var(--line); padding-left:12px; margin-left:2px;
+}
+.topbar .spacer{flex:1}
+
+/* ── chapter dot rail ─────────────────────────────────────────── */
+.rail{
+  position:fixed; right:22px; top:50%; transform:translateY(-50%); z-index:150;
+  display:flex; flex-direction:column; gap:14px;
+}
+.rail a{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--line); display:block;
+  transition:background .3s, transform .3s;
+}
+.rail a.on{background:var(--accent); transform:scale(1.45)}
+.rail a:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+@media(max-width:1100px){.rail{display:none}}
+
+/* ── shared section grammar ──────────────────────────────────── */
+.band{position:relative; overflow:clip}
+.band-dark{background:var(--dark-bg); color:var(--dark-ink); transition:background .3s}
+.wrap{max-width:1080px; margin:0 auto; padding:110px 28px}
+.eyebrow{
+  font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); display:inline-flex; align-items:center; gap:10px; margin-bottom:18px;
+}
+.eyebrow::before{content:''; width:22px; height:1px; background:var(--accent)}
+.chap-num{
+  position:absolute; top:48px; right:28px; line-height:1; pointer-events:none;
+  font-family:'Bricolage Grotesque',sans-serif; font-weight:500;
+  font-size:clamp(5rem,12vw,9rem); color:var(--accent); opacity:.08;
+}
+.h-title{font-size:clamp(1.7rem,3.6vw,2.6rem); line-height:1.12; max-width:760px}
+.h-lede{font-size:clamp(1rem,1.4vw,1.12rem); color:var(--ink-dim); line-height:1.65; max-width:640px; margin-top:18px}
+.band-dark .h-lede{color:var(--dark-dim)}
+.closer{
+  font-size:clamp(1.05rem,1.6vw,1.25rem); font-weight:500; line-height:1.55;
+  border-left:3px solid var(--accent); padding-left:22px; max-width:640px; margin-top:52px;
+}
+
+/* ── hero ─────────────────────────────────────────────────────── */
+.hero{
+  min-height:100svh; display:flex; align-items:flex-end;
+  background:var(--dark-bg); color:var(--dark-ink); position:relative; overflow:clip;
+  transition:background .3s;
+}
+.hero-bg{
+  position:absolute; inset:-6% 0; pointer-events:none;
+  background-image:url('assets/weedsy-deck.jpg');
+  /* r1c1 tile at 340% zoom, cropped past the collage's white tile seams */
+  background-size:340% 340%; background-position:2.8% 2.8%;
+  will-change:transform;
+}
+.hero-veil{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--dark-bg) 72%, transparent) 0%,
+    color-mix(in srgb, var(--dark-bg) 38%, transparent) 45%,
+    var(--dark-bg) 96%);
+}
+.hero-inner{position:relative; width:100%; max-width:1080px; margin:0 auto; padding:140px 28px 96px}
+.hero h1{font-size:clamp(2.5rem,6.5vw,4.6rem); line-height:1.02; letter-spacing:-.035em; max-width:820px}
+.hero .h-lede{color:var(--dark-dim); max-width:520px; margin-top:24px}
+.hero-divider{width:54px; height:4px; background:var(--accent); border-radius:2px; margin-top:30px}
+.scroll-cue{
+  position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  font-size:.65rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--dark-dim);
+}
+.scroll-cue svg{animation:cueDrop 1.8s ease-in-out infinite}
+@keyframes cueDrop{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+@media(prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
+body.rm .scroll-cue svg{animation:none}
+
+/* ── 01 the moment · quote + four nots ────────────────────────── */
+.quote{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.5rem,3vw,2.3rem); line-height:1.22;
+  border-left:4px solid var(--accent); padding-left:26px; max-width:740px;
+}
+.nots{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:56px}
+.not-card{
+  background:var(--dark-card); border:1px solid var(--dark-line,rgba(255,255,255,.1));
+  border-radius:var(--radius); padding:26px 24px;
+}
+.not-kicker{font-size:.66rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); margin-bottom:10px}
+.not-card p{font-size:.95rem; color:var(--dark-dim); line-height:1.6}
+.band-dark .closer{color:var(--dark-ink)}
+
+/* ── 02 burdens grid ──────────────────────────────────────────── */
+.burdens{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:52px}
+.burden{
+  background:var(--ghost); border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px 18px;
+  font-size:.9rem; font-weight:600; line-height:1.35;
+  display:flex; flex-direction:column; gap:10px;
+}
+.burden b{
+  font-family:'Bricolage Grotesque',sans-serif; font-weight:500;
+  font-size:1.3rem; color:var(--accent); line-height:1;
+}
+
+/* ── 03 the gap · two column work list ───────────────────────── */
+.gap-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; margin-top:52px; max-width:820px}
+.gap-item{
+  display:flex; align-items:baseline; gap:16px;
+  padding:14px 0; border-bottom:1px solid var(--dark-line,rgba(255,255,255,.1));
+  font-size:1rem; color:var(--dark-ink);
+}
+.gap-item span{
+  font-family:'Bricolage Grotesque',sans-serif; font-size:.85rem;
+  color:var(--accent); flex-shrink:0; min-width:26px;
+}
+
+/* ── 04 proposition · sticky headline, cards scroll ──────────── */
+.prop{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start}
+.prop-sticky{position:sticky; top:calc(var(--topbar-h) + 96px)}
+.prop-head{font-size:clamp(1.9rem,3.6vw,2.8rem); line-height:1.1}
+.prop-head em{color:var(--accent); font-style:normal}
+.prop-cards{display:flex; flex-direction:column; gap:22px}
+.prop-card{
+  background:var(--ghost); border:1px solid var(--line);
+  border-radius:var(--radius); padding:34px 30px; box-shadow:var(--shadow);
+}
+.prop-label{font-size:.68rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); margin-bottom:12px}
+.prop-card p{font-size:1rem; color:var(--ink-dim); line-height:1.7}
+
+/* ── 05 lanes · stacking cards ────────────────────────────────── */
+.lanes{display:flex; flex-direction:column; gap:28px; margin-top:56px; padding-bottom:24px}
+.lane{
+  position:sticky; top:calc(var(--topbar-h) + 40px + var(--i) * 22px);
+  background:var(--card); border:1px solid var(--line);
+  border-radius:calc(var(--radius) + 4px); box-shadow:var(--shadow);
+  display:grid; grid-template-columns:1fr 300px; overflow:clip;
+  min-height:320px;
+}
+.lane-body{padding:42px 40px; display:flex; flex-direction:column; gap:16px}
+.lane-num{
+  font-family:'Bricolage Grotesque',sans-serif; font-size:.8rem; font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent);
+}
+.lane-title{font-size:clamp(1.4rem,2.4vw,1.9rem); line-height:1.15}
+.lane-desc{font-size:.97rem; color:var(--ink-dim); line-height:1.65; max-width:480px}
+.lane-tag{
+  display:inline-block; width:fit-content; font-size:.65rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; background:var(--accent-soft); color:var(--accent-deep);
+  padding:5px 12px; border-radius:20px; margin-top:auto;
+}
+.lane-img{
+  background-image:url('assets/weedsy-deck.jpg');
+  background-size:340% 340%; position:relative;
+}
+.lane-img::after{content:''; position:absolute; inset:0; background:linear-gradient(to right, var(--card) 0%, transparent 40%)}
+.lane-1 .lane-img{background-position:97.2% 50%}
+.lane-2 .lane-img{background-position:97.2% 2.8%}
+.lane-3 .lane-img{background-position:50% 97.2%}
+
+/* ── 06 jv columns ────────────────────────────────────────────── */
+.jv-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:52px}
+.jv-col{
+  background:var(--dark-card); border:1px solid var(--dark-line,rgba(255,255,255,.1));
+  border-top:3px solid var(--accent);
+  border-radius:0 0 var(--radius) var(--radius); padding:36px 32px;
+}
+.jv-col-label{font-size:.68rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); margin-bottom:14px}
+.jv-col-title{font-size:1.35rem; margin-bottom:14px}
+.jv-col p{font-size:.95rem; color:var(--dark-dim); line-height:1.7}
+
+/* ── 07 team ──────────────────────────────────────────────────── */
+.team{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:52px}
+.team-card{
+  background:var(--ghost); border:1px solid var(--line);
+  border-radius:var(--radius); padding:28px 24px;
+}
+.team-avatar{
+  width:52px; height:52px; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent-deep);
+  font-family:'Bricolage Grotesque',sans-serif; font-size:1.25rem; font-weight:600;
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+}
+.team-name{font-size:1.25rem; margin-bottom:4px}
+.team-role{font-size:.65rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin-bottom:10px}
+.team-bio{font-size:.84rem; color:var(--ink-dim); line-height:1.55; margin-bottom:14px}
+.team-card ul{list-style:none; display:flex; flex-direction:column; gap:8px}
+.team-card li{font-size:.82rem; color:var(--ink-dim); line-height:1.5; display:flex; gap:8px}
+.team-card li::before{content:'·'; color:var(--accent); font-weight:700}
+.caps{display:flex; flex-wrap:wrap; gap:10px; margin-top:40px; max-width:840px}
+.cap{
+  font-size:.74rem; font-weight:600; letter-spacing:.02em;
+  background:var(--accent-soft); color:var(--accent-deep);
+  padding:7px 14px; border-radius:20px;
+}
+
+/* ── 08 partner brings · icon rows ───────────────────────────── */
+.brings{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:52px}
+.bring{
+  display:flex; align-items:center; gap:16px;
+  background:var(--ghost); border:1px solid var(--line);
+  border-radius:var(--radius); padding:20px 22px;
+}
+.bring-icon{
+  width:36px; height:36px; border-radius:10px; flex-shrink:0;
+  background:var(--accent-soft); color:var(--accent-deep);
+  display:flex; align-items:center; justify-content:center;
+}
+.bring p{font-size:.88rem; color:var(--ink-dim); line-height:1.55}
+.bring p b{display:block; font-weight:600; color:var(--ink); margin-bottom:2px}
+
+/* ── 09 horizon · staged lines ────────────────────────────────── */
+.horizon{min-height:86svh; display:flex; align-items:center; position:relative}
+.horizon-bg{
+  position:absolute; inset:-8% 0; pointer-events:none; opacity:.16;
+  background-image:url('assets/weedsy-deck.jpg');
+  background-size:340% 340%; background-position:50% 2.8%;
+  will-change:transform;
+}
+.horizon-line{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.6rem,3.4vw,2.7rem); line-height:1.25; display:block;
+}
+.horizon-line em{color:var(--accent); font-style:normal}
+.horizon-after{font-size:1.02rem; color:var(--dark-dim); line-height:1.7; max-width:620px; margin-top:36px}
+
+/* ── 10 phase one timeline ────────────────────────────────────── */
+.tl{position:relative; margin-top:60px; padding-left:44px; max-width:760px}
+.tl-line{
+  position:absolute; left:13px; top:8px; bottom:8px; width:2px;
+  background:var(--line); overflow:hidden;
+}
+.tl-line i{
+  position:absolute; inset:0; background:var(--accent);
+  transform:scaleY(0); transform-origin:top;
+  transition:transform 1.6s cubic-bezier(.22,1,.36,1) .2s;
+}
+.tl.in .tl-line i{transform:scaleY(1)}
+@media(prefers-reduced-motion:reduce){.tl-line i{transform:scaleY(1)!important; transition:none!important}}
+body.rm .tl-line i{transform:scaleY(1)!important; transition:none!important}
+.tl-item{position:relative; padding:0 0 30px}
+.tl-item:last-child{padding-bottom:0}
+.tl-node{
+  position:absolute; left:-44px; top:0;
+  width:28px; height:28px; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent-deep);
+  border:2px solid var(--accent);
+  font-size:.62rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+.tl-item b{
+  display:flex; align-items:center; min-height:28px;
+  font-family:'Bricolage Grotesque',sans-serif; font-weight:500; font-size:1.08rem;
+}
+
+/* ── close ────────────────────────────────────────────────────── */
+.close-band{text-align:center}
+.close-band .wrap{padding-top:130px; padding-bottom:80px}
+.close-seal{width:84px; height:84px; color:var(--accent); margin:0 auto 36px; display:block}
+.close-head{font-size:clamp(2rem,4.6vw,3.4rem); line-height:1.08; max-width:820px; margin:0 auto}
+.close-head em{color:var(--accent); font-style:normal}
+.close-body{font-size:1.05rem; color:var(--dark-dim); line-height:1.75; max-width:600px; margin:28px auto 0}
+.close-foot{
+  margin-top:72px; padding-top:26px; border-top:1px solid var(--dark-line,rgba(255,255,255,.1));
+  display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+  font-size:.78rem; color:var(--dark-dim);
+}
+.close-foot .wordmark{font-size:.95rem; font-weight:600; color:var(--accent)}
+/* seal self-draw */
+.close-seal .draw{stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1.4s ease var(--d,0s)}
+.close-seal .sun-fill{opacity:0; transition:opacity .8s ease 1.5s}
+.close-seal.in .draw{stroke-dashoffset:0}
+.close-seal.in .sun-fill{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .close-seal .draw{stroke-dashoffset:0!important; transition:none!important}
+  .close-seal .sun-fill{opacity:1!important; transition:none!important}
+}
+body.rm .close-seal .draw{stroke-dashoffset:0!important; transition:none!important}
+body.rm .close-seal .sun-fill{opacity:1!important; transition:none!important}
+
+/* ── honeycomb display menu ───────────────────────────────────── */
+.theme-picker{position:relative; z-index:210}
+.hex{clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)}
+.hex-trigger{
+  width:38px; height:44px; border:none; background:var(--ghost);
+  color:var(--accent); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .25s, color .25s;
+}
+.hex-trigger.open{background:var(--accent-soft)}
+#trigIcon{display:flex; align-items:center; justify-content:center}
+#trigIcon svg{transition:transform .4s ease}
+.hex-trigger.open #trigIcon svg{transform:rotate(120deg)}
+.theme-panel{
+  position:absolute; top:calc(100% + 14px); right:-4px;
+  transform:scale(.08); transform-origin:calc(100% - 23px) -34px;
+  opacity:0; pointer-events:none; visibility:hidden;
+  transition:transform .4s ease-in, opacity .35s ease-in, visibility 0s linear .4s;
+}
+.theme-panel.open{
+  transform:scale(1); opacity:1; pointer-events:auto; visibility:visible;
+  transition:transform .65s cubic-bezier(.34,1.45,.64,1), opacity .22s ease-out, visibility 0s;
+}
+.panel-circle{
+  background:rgba(30,27,24,.93); border:1px solid rgba(255,255,255,.15);
+  border-radius:50%; width:200px; height:200px; backdrop-filter:blur(16px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  box-shadow:0 20px 48px rgba(0,0,0,.5);
+}
+.t-row{display:flex; gap:4px; justify-content:center}
+.t-row + .t-row{margin-top:-12px}
+.t-cell{
+  width:54px; height:62px; border:none; cursor:pointer;
+  background:rgba(255,255,255,.07); color:rgba(255,255,255,.75);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  transform:scale(.35); transition:background .25s, color .25s, transform .4s ease-in;
+}
+.t-cell small{font-size:.46rem; letter-spacing:.04em; color:rgba(255,255,255,.45); font-weight:700; text-transform:uppercase}
+.t-cell.on{background:linear-gradient(150deg, var(--accent), var(--accent-deep)); color:var(--accent-ink)}
+.t-cell.on small{color:var(--accent-ink)}
+.t-cell.tg-on{background:var(--accent-soft); color:var(--accent-deep)}
+.t-cell.tg-on small{color:var(--accent-deep)}
+.t-cell .aa-glyph{font-size:.8rem; font-weight:700; line-height:1}
+.t-cell:focus-visible,.hex-trigger:focus-visible{outline:3px solid var(--accent); outline-offset:-4px}
+.theme-panel.open .t-row:nth-child(1) .t-cell{transform:scale(1); transition:background .25s, color .25s, transform .65s cubic-bezier(.34,1.45,.64,1) .08s}
+.theme-panel.open .t-row:nth-child(2) .t-cell{transform:scale(1); transition:background .25s, color .25s, transform .65s cubic-bezier(.34,1.45,.64,1) .22s}
+.theme-panel.open .t-row:nth-child(3) .t-cell{transform:scale(1); transition:background .25s, color .25s, transform .65s cubic-bezier(.34,1.45,.64,1) .36s}
+@media(prefers-reduced-motion:reduce){
+  .theme-panel,.theme-panel.open,.t-cell,.theme-panel.open .t-row .t-cell,#trigIcon svg{transition:none!important;transform:none!important}
+  .theme-panel{opacity:0}
+  .theme-panel.open{opacity:1}
+}
+body.rm .theme-panel,body.rm .theme-panel.open,body.rm .t-cell,
+body.rm .theme-panel.open .t-row .t-cell,body.rm #trigIcon svg{transition:none!important;transform:none!important}
+body.rm .theme-panel{opacity:0}
+body.rm .theme-panel.open{opacity:1}
+
+/* ── mobile ───────────────────────────────────────────────────── */
+@media(max-width:760px){
+  .wrap{padding:80px 22px}
+  .hero-inner{padding:120px 22px 90px}
+  .chap-num{top:32px; right:18px; opacity:.07}
+  .topbar .copartner{display:none}
+  .nots{grid-template-columns:1fr}
+  .burdens{grid-template-columns:1fr 1fr; gap:10px}
+  .burden{padding:16px 14px; font-size:.8rem}
+  .gap-grid{grid-template-columns:1fr; gap:2px}
+  .prop{grid-template-columns:1fr; gap:32px}
+  .prop-sticky{position:static}
+  .lane{grid-template-columns:1fr; min-height:0; top:calc(var(--topbar-h) + 20px + var(--i) * 14px)}
+  .lane-body{padding:28px 22px}
+  .lane-img{height:140px; order:-1}
+  .lane-img::after{background:linear-gradient(to top, var(--card) 0%, transparent 55%)}
+  .jv-cols{grid-template-columns:1fr}
+  .team{grid-template-columns:1fr; gap:14px}
+  .brings{grid-template-columns:1fr}
+  .tl{padding-left:40px}
+  .tl-node{left:-40px}
+  .closer{margin-top:36px}
+  .close-foot{flex-direction:column; gap:8px}
+}
+@media(min-width:761px) and (max-width:980px){
+  .team{grid-template-columns:1fr 1fr}
+  .burdens{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- hidden SVG defs · the seal -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="seal" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="32" cy="32" r="29" fill="none"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke-width="1" stroke-dasharray="2 3"/>
+      <line x1="17" y1="40" x2="47" y2="40"/>
+      <path d="M22 40 A 10 10 0 0 1 42 40 Z" fill="currentColor" stroke="none"/>
+      <line x1="32" y1="28" x2="32" y2="24"/>
+      <line x1="23.5" y1="31.5" x2="20.7" y2="28.7"/>
+      <line x1="40.5" y1="31.5" x2="43.3" y2="28.7"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- topbar -->
+<header class="topbar">
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seal"/></svg>
+  <span class="wordmark">weedsy</span>
+  <span class="copartner">&times; One Tribe, LLC</span>
+  <span class="spacer"></span>
+  <div class="theme-picker">
+    <button class="hex hex-trigger" id="themeTrigger" aria-haspopup="true" aria-expanded="false" title="Display options">
+      <span id="trigIcon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </span>
+    </button>
+    <div class="theme-panel" id="themePanel" aria-hidden="true">
+      <div class="panel-circle">
+        <div class="t-row">
+          <button class="hex t-cell on" data-theme="">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <small>Classic</small>
+          </button>
+          <button class="hex t-cell" data-theme="theme-fresh">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+            <small>Fresh</small>
+          </button>
+        </div>
+        <div class="t-row">
+          <button class="hex t-cell" data-theme="theme-care">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-9-9c-1.2-2.8.6-6 3.8-6 2 0 3.4 1.2 4.2 2.6C11.8 6.2 13.2 5 15.2 5c3.2 0 5 3.2 3.8 6-2 4.5-7 9-7 9z"/></svg>
+            <small>Care</small>
+          </button>
+          <button class="hex t-cell" data-theme="theme-night">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <small>Night</small>
+          </button>
+          <button class="hex t-cell" data-theme="theme-contrast">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
+            <small>Contrast</small>
+          </button>
+        </div>
+        <div class="t-row">
+          <button class="hex t-cell" data-toggle="lg" aria-pressed="false">
+            <span class="aa-glyph">Aa</span><small>Large text</small>
+          </button>
+          <button class="hex t-cell" data-toggle="rm" aria-pressed="false">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg>
+            <small>No motion</small>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- chapter rail -->
+<nav class="rail" aria-label="Chapters" id="rail">
+  <a href="#hero" title="Title" aria-label="Title"></a>
+  <a href="#c1" title="The Moment" aria-label="The Moment"></a>
+  <a href="#c2" title="The Operator's Dilemma" aria-label="The Operator's Dilemma"></a>
+  <a href="#c3" title="The Strategic Gap" aria-label="The Strategic Gap"></a>
+  <a href="#c4" title="Our Core Proposition" aria-label="Our Core Proposition"></a>
+  <a href="#c5" title="Three Opportunity Lanes" aria-label="Three Opportunity Lanes"></a>
+  <a href="#c6" title="Why a JV Structure" aria-label="Why a JV Structure"></a>
+  <a href="#c7" title="The One Tribe Team" aria-label="The One Tribe Team"></a>
+  <a href="#c8" title="Our Partner's Contributions" aria-label="Our Partner's Contributions"></a>
+  <a href="#c9" title="The Long Horizon" aria-label="The Long Horizon"></a>
+  <a href="#c10" title="Phase One" aria-label="Phase One"></a>
+  <a href="#close" title="Close" aria-label="Close"></a>
+</nav>
+
+<main>
+
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="eyebrow" data-rv>One Tribe, LLC &middot; Confidential</span>
+    <h1 data-rv style="--d:.12s">California Schedule III Partnership Opportunity</h1>
+    <div class="hero-divider" data-rv="left" style="--d:.3s"></div>
+    <p class="h-lede" data-rv style="--d:.42s">A strategic joint venture for Schedule III medical cannabis and direct to consumer market development.</p>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">
+    Scroll
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+  </div>
+</section>
+
+<!-- ── 01 THE MOMENT ────────────────────────────────────────────── -->
+<section class="band band-dark" id="c1">
+  <span class="chap-num" aria-hidden="true">01</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>The Moment</span>
+    <blockquote class="quote" data-rv style="--d:.1s">Rescheduling has created a new legal and commercial environment for cannabis.</blockquote>
+    <p class="h-lede" data-rv style="--d:.22s">But it will not automatically create new business models or markets.</p>
+    <div class="nots">
+      <div class="not-card" data-rv style="--d:.1s">
+        <div class="not-kicker">It does not automatically authorize</div>
+        <p>Interstate or international commerce.</p>
+      </div>
+      <div class="not-card" data-rv style="--d:.2s">
+        <div class="not-kicker">It does not automatically authorize</div>
+        <p>Online cannabis pharmacies.</p>
+      </div>
+      <div class="not-card" data-rv style="--d:.3s">
+        <div class="not-kicker">It does not automatically authorize</div>
+        <p>Common carrier delivery.</p>
+      </div>
+      <div class="not-card" data-rv style="--d:.4s">
+        <div class="not-kicker">It does not automatically authorize</div>
+        <p>Direct to consumer cannabis access.</p>
+      </div>
+    </div>
+    <p class="closer" data-rv>The opportunity is real. But the pathway will be long, uncertain, and legally complex.</p>
+  </div>
+</section>
+
+<!-- ── 02 THE OPERATOR'S DILEMMA ───────────────────────────────── -->
+<section class="band" id="c2">
+  <span class="chap-num" aria-hidden="true">02</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>The Operator's Dilemma</span>
+    <h2 class="h-title" data-rv style="--d:.1s">Schedule III opportunities require immediate attention. But California operators are already carrying heavy burdens.</h2>
+    <div class="burdens">
+      <div class="burden" data-rv style="--d:.05s"><b>01</b>Tax pressure</div>
+      <div class="burden" data-rv style="--d:.1s"><b>02</b>Compliance complexity</div>
+      <div class="burden" data-rv style="--d:.15s"><b>03</b>Local and state regulation</div>
+      <div class="burden" data-rv style="--d:.2s"><b>04</b>Wholesale compression and fluctuation</div>
+      <div class="burden" data-rv style="--d:.25s"><b>05</b>Retail bottlenecks</div>
+      <div class="burden" data-rv style="--d:.3s"><b>06</b>Banking and financial services</div>
+      <div class="burden" data-rv style="--d:.35s"><b>07</b>Marketing restrictions</div>
+      <div class="burden" data-rv style="--d:.4s"><b>08</b>Capital constraints</div>
+    </div>
+    <p class="closer" data-rv>Your team should stay focused on the business that is producing revenue now. Schedule III opportunity development requires a different kind of work.</p>
+  </div>
+</section>
+
+<!-- ── 03 THE STRATEGIC GAP ────────────────────────────────────── -->
+<section class="band band-dark" id="c3">
+  <span class="chap-num" aria-hidden="true">03</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>The Strategic Gap</span>
+    <h2 class="h-title" data-rv style="--d:.1s">Most operators do not have the time, staff, or strategic bandwidth to track every emerging Schedule III opportunity.</h2>
+    <p class="h-lede" data-rv style="--d:.2s">The work requires:</p>
+    <div class="gap-grid">
+      <div class="gap-item" data-rv style="--d:.05s"><span>01</span>Regulatory mapping</div>
+      <div class="gap-item" data-rv style="--d:.1s"><span>02</span>Legal issue spotting</div>
+      <div class="gap-item" data-rv style="--d:.15s"><span>03</span>Business model design</div>
+      <div class="gap-item" data-rv style="--d:.2s"><span>04</span>Partner development</div>
+      <div class="gap-item" data-rv style="--d:.25s"><span>05</span>Medical access strategy</div>
+      <div class="gap-item" data-rv style="--d:.3s"><span>06</span>Platform architecture</div>
+      <div class="gap-item" data-rv style="--d:.35s"><span>07</span>Capital narrative</div>
+      <div class="gap-item" data-rv style="--d:.4s"><span>08</span>Long horizon patience</div>
+    </div>
+    <p class="closer" data-rv>That work needs to happen before the opportunity is obvious.</p>
+  </div>
+</section>
+
+<!-- ── 04 OUR CORE PROPOSITION ─────────────────────────────────── -->
+<section class="band" id="c4">
+  <span class="chap-num" aria-hidden="true">04</span>
+  <div class="wrap">
+    <div class="prop">
+      <div class="prop-sticky">
+        <span class="eyebrow" data-rv>Our Core Proposition</span>
+        <h2 class="prop-head" data-rv style="--d:.1s">The goal is not advice.<br>The goal is <em>enterprise value</em>.</h2>
+      </div>
+      <div class="prop-cards">
+        <div class="prop-card" data-rv>
+          <div class="prop-label">We carry</div>
+          <p>The long range opportunity development burden.</p>
+        </div>
+        <div class="prop-card" data-rv style="--d:.12s">
+          <div class="prop-label">You continue</div>
+          <p>Operating your core business.</p>
+        </div>
+        <div class="prop-card" data-rv style="--d:.24s">
+          <div class="prop-label">Together, we build</div>
+          <p>Future facing opportunities that can eventually bolt onto your existing operations with as little pain and disruption as possible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05 THREE OPPORTUNITY LANES ──────────────────────────────── -->
+<section class="band" id="c5" style="background:var(--ghost)">
+  <span class="chap-num" aria-hidden="true">05</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>Three Opportunity Lanes</span>
+    <h2 class="h-title" data-rv style="--d:.1s">We propose to focus initially on three high value opportunity lanes. Each has a different risk profile, timeline, capital needs, and legal complexity.</h2>
+    <div class="lanes">
+      <article class="lane lane-1" style="--i:0">
+        <div class="lane-body">
+          <span class="lane-num">Lane 01</span>
+          <h3 class="lane-title">Interstate and International Wholesale</h3>
+          <p class="lane-desc">Positioning for interstate and international wholesale if and when a federal Schedule III framework allows it.</p>
+          <span class="lane-tag">Longest horizon</span>
+        </div>
+        <div class="lane-img" aria-hidden="true"></div>
+      </article>
+      <article class="lane lane-2" style="--i:1">
+        <div class="lane-body">
+          <span class="lane-num">Lane 02</span>
+          <h3 class="lane-title">Online Pharmacy</h3>
+          <p class="lane-desc">An online pharmacy lane, developed for the moment regulations permit.</p>
+          <span class="lane-tag">Medium horizon</span>
+        </div>
+        <div class="lane-img" aria-hidden="true"></div>
+      </article>
+      <article class="lane lane-3" style="--i:2">
+        <div class="lane-body">
+          <span class="lane-num">Lane 03</span>
+          <h3 class="lane-title">Weedsy &middot; The Etsy for Weed</h3>
+          <p class="lane-desc">A direct to consumer marketplace for small, independent, verified farms.</p>
+          <span class="lane-tag">Nearest horizon</span>
+        </div>
+        <div class="lane-img" aria-hidden="true"></div>
+      </article>
+    </div>
+    <p class="closer" data-rv>Together, they point toward a balanced strategy, sequenced by time, risk, and capital.</p>
+  </div>
+</section>
+<!-- ── 06 WHY A JV STRUCTURE ───────────────────────────────────── -->
+<section class="band band-dark" id="c6">
+  <span class="chap-num" aria-hidden="true">06</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>Why a JV Structure</span>
+    <h2 class="h-title" data-rv style="--d:.1s">A JV allows each side to contribute what it does best.</h2>
+    <div class="jv-cols">
+      <div class="jv-col" data-rv style="--d:.1s">
+        <div class="jv-col-label">The License Bearing Partner</div>
+        <div class="jv-col-title">The operating foundation</div>
+        <p>California licenses and the compliance base. Operating infrastructure. Legal standing. Access to capital. The ability to test, implement, and eventually absorb the opportunity when it matures.</p>
+      </div>
+      <div class="jv-col" data-rv style="--d:.25s">
+        <div class="jv-col-label">One Tribe, LLC</div>
+        <div class="jv-col-title">The long range development engine</div>
+        <p>Steve, Andrew, and Lani contribute long range opportunity development, strategy, credibility, relationships, and platform vision.</p>
+      </div>
+    </div>
+    <p class="closer" data-rv>The structure should align incentives around ownership, enterprise value, and future growth.</p>
+  </div>
+</section>
+
+<!-- ── 07 THE ONE TRIBE TEAM ───────────────────────────────────── -->
+<section class="band" id="c7">
+  <span class="chap-num" aria-hidden="true">07</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>The One Tribe Team</span>
+    <h2 class="h-title" data-rv style="--d:.1s">What One Tribe brings, and who brings it.</h2>
+    <p class="h-lede" data-rv style="--d:.2s">One Tribe, LLC is the development side of this partnership: the team that carries the long range Schedule III work while the operating partner stays focused on the business that is producing revenue now.</p>
+    <div class="team">
+      <div class="team-card" data-rv style="--d:.05s">
+        <div class="team-avatar">S</div>
+        <div class="team-name">Steve</div>
+        <div class="team-role">Movement &amp; Credibility</div>
+        <p class="team-bio">A leader with decades of history in the cannabis movement, a public voice, and a vision for where the industry goes next.</p>
+        <ul>
+          <li>Credibility and movement legitimacy</li>
+          <li>National and international relationships with operators, regulators, and advocates</li>
+        </ul>
+      </div>
+      <div class="team-card" data-rv style="--d:.15s">
+        <div class="team-avatar">A</div>
+        <div class="team-name">Andrew</div>
+        <div class="team-role">Operations &amp; Policy</div>
+        <p class="team-bio">An operator and entrepreneur who has navigated policy and built ventures, boards, and teams.</p>
+        <ul>
+          <li>Operational and entrepreneurial track record</li>
+          <li>Policy experience and board and team building</li>
+        </ul>
+      </div>
+      <div class="team-card" data-rv style="--d:.25s">
+        <div class="team-avatar">L</div>
+        <div class="team-name">Lani</div>
+        <div class="team-role">Research &amp; Compliance</div>
+        <p class="team-bio">An organizer and researcher who tracks compliance and keeps complex, long horizon work on schedule.</p>
+        <ul>
+          <li>Organizing and research</li>
+          <li>Compliance and project management</li>
+        </ul>
+      </div>
+      <div class="team-card" data-rv style="--d:.35s">
+        <div class="team-avatar">P</div>
+        <div class="team-name">Parham</div>
+        <div class="team-role">Platform &amp; Product</div>
+        <p class="team-bio">The architect of the Weedsy marketplace platform, turning the direct to consumer lane from a concept into a buildable product.</p>
+        <ul>
+          <li>Product strategy and technology infrastructure</li>
+          <li>The Weedsy consumer experience, already in design</li>
+        </ul>
+      </div>
+    </div>
+    <div class="caps" data-rv>
+      <span class="cap">Opportunity mapping</span>
+      <span class="cap">Strategic analysis</span>
+      <span class="cap">Business model design</span>
+      <span class="cap">Brand architecture</span>
+      <span class="cap">Partner development</span>
+      <span class="cap">Stakeholder and investor narrative</span>
+      <span class="cap">Compliance informed, non legal analysis</span>
+      <span class="cap">Long horizon development capacity</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── 08 OUR PARTNER'S CONTRIBUTIONS ──────────────────────────── -->
+<section class="band" id="c8" style="background:var(--ghost)">
+  <span class="chap-num" aria-hidden="true">08</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>Our Partner's Contributions</span>
+    <h2 class="h-title" data-rv style="--d:.1s">The legal and operational foundation that makes the opportunity real.</h2>
+    <div class="brings">
+      <div class="bring" data-rv style="--d:.05s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <p><b>California licenses or license pathways</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.11s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <p><b>Operating infrastructure</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.17s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+        <p><b>Compliance base</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.23s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <p><b>Seriousness about medical cannabis</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.29s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2m2 0h2M9 13h2m2 0h2M9 17h2m2 0h2"/></svg></div>
+        <p><b>A legal operating base</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.35s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <p><b>Access to capital</b></p>
+      </div>
+      <div class="bring" data-rv style="--d:.41s">
+        <div class="bring-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3l-9 9"/><path d="M15 3h6v6"/></svg></div>
+        <p><b>The ability to test, implement, and eventually absorb the opportunity</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 09 THE LONG HORIZON ─────────────────────────────────────── -->
+<section class="band band-dark horizon" id="c9">
+  <div class="horizon-bg" id="horizonBg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>The Long Horizon</span>
+    <span class="horizon-line" data-rv style="--d:.1s">Schedule III may take <em>years</em> to mature into meaningful commercial opportunities.</span>
+    <span class="horizon-line" data-rv style="--d:.35s">Some pathways may never open.</span>
+    <span class="horizon-line" data-rv style="--d:.6s">But if they do, the best positioned companies will be the ones that <em>started early</em>.</span>
+    <p class="horizon-after" data-rv style="--d:.85s">They will already have the relationships, legal analysis, brand strategy, operating structures, and platform architecture in place. The right time to prepare is before the market becomes obvious.</p>
+  </div>
+</section>
+
+<!-- ── 10 PHASE ONE ────────────────────────────────────────────── -->
+<section class="band" id="c10">
+  <span class="chap-num" aria-hidden="true">10</span>
+  <div class="wrap">
+    <span class="eyebrow" data-rv>Phase One</span>
+    <h2 class="h-title" data-rv style="--d:.1s">Eight commitments to make the partnership concrete.</h2>
+    <div class="tl" id="timeline">
+      <div class="tl-line" aria-hidden="true"><i></i></div>
+      <div class="tl-item" data-rv style="--d:.05s">
+        <span class="tl-node">01</span>
+        <b>Confirm partner assets and entitlements</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.1s">
+        <span class="tl-node">02</span>
+        <b>Map legal gates for the three opportunity lanes</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.15s">
+        <span class="tl-node">03</span>
+        <b>Develop preliminary pro formas</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.2s">
+        <span class="tl-node">04</span>
+        <b>Develop preliminary compliance architecture</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.25s">
+        <span class="tl-node">05</span>
+        <b>Identify and retain outside counsel</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.3s">
+        <span class="tl-node">06</span>
+        <b>Build the enterprise map</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.35s">
+        <span class="tl-node">07</span>
+        <b>Outline founder economics and the JV structure</b>
+      </div>
+      <div class="tl-item" data-rv style="--d:.4s">
+        <span class="tl-node">08</span>
+        <b>Produce a go, no go, or next step opportunity assessment</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSE ───────────────────────────────────────────────────── -->
+<section class="band band-dark close-band" id="close">
+  <div class="wrap">
+    <svg class="close-seal" id="closeSeal" viewBox="0 0 64 64" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <circle class="draw" cx="32" cy="32" r="29" pathLength="100" style="--d:0s"/>
+        <circle class="draw" cx="32" cy="32" r="24" stroke-width="1" stroke-dasharray="2 3" pathLength="100" style="--d:.2s"/>
+        <line class="draw" x1="17" y1="40" x2="47" y2="40" pathLength="100" style="--d:.5s"/>
+        <path class="sun-fill" d="M22 40 A 10 10 0 0 1 42 40 Z" fill="currentColor" stroke="none"/>
+        <line class="draw" x1="32" y1="28" x2="32" y2="24" pathLength="100" style="--d:.9s"/>
+        <line class="draw" x1="23.5" y1="31.5" x2="20.7" y2="28.7" pathLength="100" style="--d:1s"/>
+        <line class="draw" x1="40.5" y1="31.5" x2="43.3" y2="28.7" pathLength="100" style="--d:1.1s"/>
+      </g>
+    </svg>
+    <h2 class="close-head" data-rv>A strong future begins with a <em>strong partnership</em>.</h2>
+    <p class="close-body" data-rv style="--d:.2s">Schedule III will not change everything overnight. But it may open doors that have never been open before, and medical infrastructure can be adapted to adult use. Let your team keep operating the business that works today. Let our team craft the options that will define tomorrow.</p>
+    <div class="close-foot" data-rv style="--d:.4s">
+      <span>Confidential &middot; One Tribe, LLC</span>
+      <span class="wordmark">weedsy</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var rmPref=window.matchMedia('(prefers-reduced-motion:reduce)');
+  function motionOff(){return rmPref.matches||document.body.classList.contains('rm')}
+
+  /* reveal on scroll */
+  var revealed=document.querySelectorAll('[data-rv]');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+      });
+    },{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+    revealed.forEach(function(el){io.observe(el)});
+  }else{
+    revealed.forEach(function(el){el.classList.add('in')});
+  }
+
+  /* timeline draw + seal draw */
+  var bigIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');bigIO.unobserve(en.target)}
+    });
+  },{threshold:.25});
+  var tl=document.getElementById('timeline'); if(tl)bigIO.observe(tl);
+  var seal=document.getElementById('closeSeal'); if(seal)bigIO.observe(seal);
+
+  /* progress bar + gentle parallax */
+  var progress=document.getElementById('progress');
+  var heroBg=document.getElementById('heroBg');
+  var horizonBg=document.getElementById('horizonBg');
+  var ticking=false;
+  function onScroll(){
+    if(ticking)return; ticking=true;
+    requestAnimationFrame(function(){
+      ticking=false;
+      var doc=document.documentElement;
+      var max=doc.scrollHeight-window.innerHeight;
+      progress.style.width=(max>0?(window.scrollY/max*100):0)+'%';
+      if(motionOff()){heroBg.style.transform='';horizonBg.style.transform='';return}
+      heroBg.style.transform='translateY('+(window.scrollY*.18)+'px)';
+      var hz=horizonBg.getBoundingClientRect();
+      if(hz.top<window.innerHeight&&hz.bottom>0){
+        horizonBg.style.transform='translateY('+((hz.top-window.innerHeight*.5)*-.08)+'px)';
+      }
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  /* chapter rail */
+  var railLinks=Array.from(document.querySelectorAll('#rail a'));
+  var chapters=railLinks.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var railIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var i=chapters.indexOf(en.target);
+        railLinks.forEach(function(a,j){a.classList.toggle('on',j===i)});
+      }
+    });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  chapters.forEach(function(c){if(c)railIO.observe(c)});
+
+  /* honeycomb display menu */
+  var trigger=document.getElementById('themeTrigger');
+  var panel=document.getElementById('themePanel');
+  var trigIcon=document.getElementById('trigIcon');
+  function openPanel(){
+    trigger.classList.add('open');panel.classList.add('open');
+    trigger.setAttribute('aria-expanded','true');panel.setAttribute('aria-hidden','false');
+  }
+  function closePanel(){
+    trigger.classList.remove('open');panel.classList.remove('open');
+    trigger.setAttribute('aria-expanded','false');panel.setAttribute('aria-hidden','true');
+  }
+  trigger.addEventListener('click',function(e){
+    e.stopPropagation();
+    panel.classList.contains('open')?closePanel():openPanel();
+  });
+  document.addEventListener('click',function(e){
+    if(!panel.contains(e.target)&&!trigger.contains(e.target))closePanel();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closePanel()});
+
+  document.querySelectorAll('[data-theme]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var t=this.dataset.theme;
+      var rm=document.body.classList.contains('rm');
+      document.body.className=t?t:'';
+      if(rm)document.body.classList.add('rm');
+      document.querySelectorAll('[data-theme]').forEach(function(b){b.classList.remove('on')});
+      this.classList.add('on');
+      var svg=this.querySelector('svg');
+      if(svg)trigIcon.innerHTML=svg.outerHTML;
+      closePanel();
+    });
+  });
+
+  /* large text: html.lg drives the 118% rem scale */
+  document.querySelectorAll('[data-toggle="lg"]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var on=document.documentElement.classList.toggle('lg');
+      this.classList.toggle('tg-on',on);
+      this.setAttribute('aria-pressed',String(on));
+    });
+  });
+
+  /* no motion: body.rm kills animation, reveals, and parallax */
+  document.querySelectorAll('[data-toggle="rm"]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var on=document.body.classList.toggle('rm');
+      this.classList.toggle('tg-on',on);
+      this.setAttribute('aria-pressed',String(on));
+      onScroll();
+    });
+  });
+})();
+</script>
+</body>
+</html>
